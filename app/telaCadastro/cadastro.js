@@ -119,7 +119,7 @@ function cadastrar() {
     msgError.innerHTML = "";
 
     setTimeout(() => {
-      window.location.href = "/Home/home.html";
+      window.location.href = "../Home/home.html";
     }, 3000);
   } else {
     msgError.setAttribute("style", "display: block");

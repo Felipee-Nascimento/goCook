@@ -7,11 +7,11 @@
 }
 
 body {
-  background-image: url("/img/Cadastro-Login.jpg");
+  background-image: url("../img/Cadastro-Login.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-}
+}                                                                                                              ,z,,zz
 
 .container {
   display: flex;
