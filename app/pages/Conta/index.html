@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil do Usuário</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a class="logo" href="../Home/index.html">
+          <img src="/app/img/logoMenor80.png" alt="Logo GoCook" />
+        </a>
+        <div class="mobile-menu">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+        <ul class="nav-list">
+          <li><a href="../CriarReceita/index.html">Criar Receita</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="container">
+      <div class="profile-box">
+        <div class="profile-info">
+          <label>Nome:</label>
+          <p id="name">[nome usuário]</p>
+        </div>
+        <div class="profile-info">
+          <label>Email:</label>
+          <p id="email">[e-mail usuário]</p>
+        </div>
+        <div class="profile-info">
+          <label>Senha:</label>
+          <p>[senha usuário]</p>
+        </div>
+        <button class="edit-button" onclick="handleEditClick()">
+          Editar informações
+        </button>
+      </div>
+
+      <div id="modal-container" class="modal-container" style="display: none">
+        <div class="modal-content">
+          <button class="close-button" onclick="handleCloseModal()">X</button>
+          <form id="edit-form" onsubmit="handleSubmit(event)">
+            <label for="name-input">Nome:</label>
+            <input type="text" id="name-input" name="name" />
+            <label for="current-password">Senha atual:</label>
+            <input
+              type="password"
+              id="current-password"
+              name="currentPassword"
+            />
+            <label for="new-password">Nova senha:</label>
+            <input type="password" id="new-password" name="newPassword" />
+            <button type="submit" class="submit-button">Salvar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

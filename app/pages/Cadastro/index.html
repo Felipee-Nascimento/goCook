@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastrar</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="form-container">
+        <div class="card">
+          <h1>Cadastrar</h1>
+          <p class="text-obs">Cadastre suas informações abaixo</p>
+
+          <div
+            id="msgError"
+            style="display: none; color: red; text-align: center"
+          ></div>
+          <div
+            id="msgSuccess"
+            style="display: none; color: green; text-align: center"
+          ></div>
+
+          <form id="formCadastro">
+            <div class="input-float">
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                placeholder="Nome"
+                required
+              />
+              <img class="icon" src="../../img/user-chef.png" alt="Chef" />
+            </div>
+
+            <div class="input-float">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Seu melhor e-mail"
+                required
+              />
+              <img class="icon" src="../../img/email.png" alt="Email" />
+            </div>
+
+            <div class="input-float">
+              <input
+                type="password"
+                id="senha"
+                name="senha"
+                placeholder="Crie uma senha"
+                required
+              />
+              <img class="icon" src="../../img/password.png" alt="Senha" />
+              <i id="verSenha" class="fa fa-eye"></i>
+            </div>
+
+            <div class="input-float">
+              <input
+                type="password"
+                id="confirmSenha"
+                name="confirmSenha"
+                placeholder="Confirmar senha"
+                required
+              />
+              <img
+                class="icon"
+                src="../../img/password.png"
+                alt="Confirmar senha"
+              />
+              <i id="verConfirmSenha" class="fa fa-eye"></i>
+            </div>
+
+            <p class="note">Obs.: não vá esquecer a senha, hein!?</p>
+
+            <div>
+              <button type="submit">Cadastrar</button>
+            </div>
+          </form>
+
+          <p class="login-link text-obs">
+            Já possui um cadastro?
+            <a href="../Login/index.html">Entre aqui</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="phrase-column">
+        <p>
+          Transforme sua paixão por cozinha em uma coleção de receitas únicas!
+        </p>
+        <img src="../../img/logoMenor.png" alt="GoCook" />
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

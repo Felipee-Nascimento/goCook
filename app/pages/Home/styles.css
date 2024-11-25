@@ -1,0 +1,179 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 6%;
+  align-items: center;
+  font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  background: #ff6a28;
+  height: 8vh;
+}
+
+.logo {
+  margin-left: 20px;
+}
+
+.button-nav {
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.button-nav:hover {
+  opacity: 0.7;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+}
+
+.nav-list li {
+  letter-spacing: 3px;
+  margin-left: 32px;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 28px;
+  color: #222;
+  margin-top: 30px;
+}
+
+.main-content {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding-top: 8%;
+}
+
+.item {
+  display: flex;
+  width: 550px;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  transition: transform 0.3s ease-in-out;
+  justify-content: space-between;
+}
+
+.item:hover {
+  transform: translateY(-5px);
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.button-nome-receita {
+  color: #222;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.button-nome-receita:hover {
+  color: #f66f00;
+}
+.item-details h2 {
+  margin-bottom: 10px;
+}
+
+.info-group {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info p {
+  margin: 0;
+}
+
+.item img {
+  max-width: 20px;
+  max-height: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  padding: 12px 24px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.delete-button {
+  background-color: #e53935;
+}
+
+.delete-button:hover {
+  background-color: #d32f2f;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.modal-actions button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.confirm {
+  background-color: #4caf50;
+  color: white;
+}
+
+.cancel {
+  background-color: #e53935;
+  color: white;
+}

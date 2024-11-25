@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GoCook</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <a class="logo" href="../Home/index.html">
+          <img src="/app/img/logoMenor80.png" alt="Logo GoCook" />
+        </a>
+        <div class="mobile-menu">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+        <ul class="nav-list">
+          <li><a href="../Conta/index.html">Conta</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="content-wrapper">
+      <div class="form-container">
+        <div class="card">
+          <h1>Criar Receita</h1>
+
+          <form id="formCriarReceita">
+            <div class="input-float">
+              <input
+                type="text"
+                id="nomeReceita"
+                name="nomeReceita"
+                placeholder="Nome da receita"
+                required
+              />
+            </div>
+
+            <div class="input-float">
+              <input
+                type="number"
+                id="quantidadePessoas"
+                name="quantidadePessoas"
+                placeholder="Quantidade de pessoas servidas"
+                required
+              />
+            </div>
+
+            <div class="input-float">
+              <input
+                type="number"
+                id="tempoPreparo"
+                name="tempoPreparo"
+                placeholder="Tempo de Preparo"
+                required
+              />
+            </div>
+
+            <div class="input-float">
+              <textarea
+                type="modoPreparo"
+                id="modoPreparo"
+                name="tempoPreparo"
+                rows="10"
+                cols="50"
+                placeholder="Descreva aqui o modo de preparo..."
+                required
+              ></textarea>
+            </div>
+
+            <div id="ingredientes-section">
+              <h3>
+                Ingredientes
+                <button id="adicionarIngrediente" type="button">+</button>
+              </h3>
+              <ul id="listaIngredientes">
+                <!-- Os ingredientes adicionados serão exibidos aqui -->
+              </ul>
+            </div>
+
+            <div>
+              <button class="button-criar" type="submit">Cadastrar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

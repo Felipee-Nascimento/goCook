@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minhas Receitas</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a class="logo" href="../Home/index.html">
+          <img src="/app/img/logoMenor80.png" alt="Logo GoCook" />
+        </a>
+        <div class="mobile-menu">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+        <ul class="nav-list">
+          <li>
+            <a class="button-nav" href="../CriarReceita/index.html"
+              >Criar Receita</a
+            >
+          </li>
+          <li><a class="button-nav" href="../Conta/index.html">Conta</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="container">
+      <h1>Minhas Receitas</h1>
+      <div class="main-content">
+        <div class="item">
+          <div class="item-details">
+            <a class="button-nome-receita" href="../Receita/index.html">
+              <h2>Nome Receita</h2>
+            </a>
+            <div class="info-group">
+              <div class="info">
+                <p>5</p>
+                <img src="../../img/pessoas.png" alt="Pessoas" />
+              </div>
+              <div class="info">
+                <p>15</p>
+                <img src="../../img/relogio.png" alt="Tempo de Preparo" />
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="delete-button" onclick="cancelOrder()">
+              Excluir
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="cancelModal">
+      <div class="modal-content">
+        <h3>Tem certeza que deseja excluir a receita?</h3>
+        <div class="modal-actions">
+          <button class="confirm">Sim, tenho</button>
+          <button class="cancel" onclick="closeModal()">Não, cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
