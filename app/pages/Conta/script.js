@@ -65,6 +65,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  function handleLogout() {
+    localStorage.removeItem("token");
+    window.location.href = "../Login/index.html";
+  }
+
   document.getElementById("edit-form").addEventListener("submit", handleSubmit);
   document
     .querySelector(".edit-button")
@@ -72,4 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .querySelector(".close-button")
     .addEventListener("click", handleCloseModal);
+  document
+    .querySelector(".logout-button")
+    .addEventListener("click", handleLogout);
 });

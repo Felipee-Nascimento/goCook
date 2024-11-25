@@ -8,7 +8,10 @@
 }
 
 body {
-  background: #fff;
+  background-image: url("../../img/tabuaMadeira.jpg"); /* Manter comentário: Designed by Freepik */
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
   height: 100vh;
   display: flex;
   flex-direction: column;

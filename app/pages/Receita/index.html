@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+    <title>Receita - Nome da Receita</title>
   </head>
   <body>
     <header>
@@ -26,5 +27,47 @@
         </ul>
       </nav>
     </header>
+
+    <main>
+      <h1 class="recipe-title">Nome da Receita</h1>
+      <div class="recipe-container">
+        <!-- Primeira Coluna -->
+        <div class="recipe-info">
+          <div class="info-group">
+            <div class="info">
+              <p>5</p>
+              <img src="../../img/pessoas.png" alt="Pessoas" />
+            </div>
+            <div class="info">
+              <p>15</p>
+              <img src="../../img/relogio.png" alt="Tempo de Preparo" />
+            </div>
+          </div>
+          <h2>Ingredientes:</h2>
+          <ul class="ingredients">
+            <li>2 xícaras de farinha</li>
+            <li>1 xícara de açúcar</li>
+            <li>3 ovos</li>
+            <li>1 xícara de leite</li>
+            <li>1 colher de fermento</li>
+          </ul>
+          <div class="action-buttons">
+            <button class="edit-button">Editar Receita</button>
+            <button class="delete-button">Excluir Receita</button>
+          </div>
+        </div>
+
+        <!-- Segunda Coluna -->
+        <div class="recipe-steps">
+          <h2>Modo de Preparo:</h2>
+          <p>Bata os ovos com o açúcar até formar um creme.</p>
+          <p>Adicione a farinha, o leite e o fermento, misturando bem.</p>
+          <p>
+            Coloque a mistura em uma forma untada e leve ao forno por 30
+            minutos.
+          </p>
+        </div>
+      </div>
+    </main>
   </body>
 </html>

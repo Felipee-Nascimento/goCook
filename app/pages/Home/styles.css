@@ -5,6 +5,13 @@
   box-sizing: border-box;
 }
 
+body {
+  background-image: url("../../img/backgroundMinhasReceitas.jpg"); /* Manter comentário: Designed by Freepik */
+  background-size: 100%;
+  background-position: initial;
+  background-repeat: no-repeat;
+}
+
 nav {
   display: flex;
   justify-content: space-around;

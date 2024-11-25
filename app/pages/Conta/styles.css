@@ -5,6 +5,13 @@
   box-sizing: border-box;
 }
 
+body {
+  background-image: url("../../img/backgroundChef.jpg"); /* Manter comentário: Designed by Freepik */
+  background-size: 100%;
+  background-position: initial;
+  background-repeat: no-repeat;
+}
+
 nav {
   display: flex;
   justify-content: space-around;
@@ -83,6 +90,22 @@ p {
 
 .edit-button:hover {
   background-color: #ae4f00;
+}
+
+.logout-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.logout-button:hover {
+  background-color: #a71d2a;
 }
 
 .modal-container {

@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Pangolin&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url("../../img/familyLandingPage.jpg"); /* Manter comentário: Designed by Freepik */
+  background-size: 100%;
+  background-position: initial;
+  background-repeat: no-repeat;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 6%;
+  background: #ff6a28;
+  height: 10vh;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.intro {
+  background: #ff6a28;
+  color: white;
+}
+
+.intro img {
+  width: 30%;
+}
+
+.intro p {
+  font-size: 1.25rem;
+  font-family: "Pangolin", cursive;
+  font-weight: 500;
+}
+
+.intro .btn {
+  background-color: #f4a261;
+  border: none;
+}
+
+.intro .btn:hover {
+  background-color: #e76f51;
+}
