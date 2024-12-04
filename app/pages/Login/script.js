@@ -14,42 +14,46 @@ btn.addEventListener("click", () => {
   }
 });
 
-function entrar() {
-  document.querySelector("form").addEventListener("submit", async (event) => {
-    event.preventDefault(); // Impede o envio padrão do formulário
-  
-    const email = document.querySelector("#email").value;
-    const senha = document.querySelector("#senha").value;
-  
-    try {
-      const response = await fetch("http://localhost:8080/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password: senha }),
-      });
-  
-      if (!response.ok) {
-        throw new Error("Usuário ou senha incorretos");
-      }
-  
-      const data = await response.json();
-  
-      // Armazena o token no localStorage
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user)); // Armazena os dados do usuário (se necessário)
-  
-      alert("Login realizado com sucesso!");
-  
-      // Redireciona para a página principal
-      window.location.href = "../Home/index.html";
-    } catch (error) {
-      console.error("Erro ao fazer login:", error);
-      alert(error.message);
-      const msgError = document.querySelector("#msgError");
-      msgError.style.display = "block";
-      msgError.textContent = error.message;
+async function entrar() {
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("senha").value;
+  const msgError = document.getElementById("msgError");
+
+  // Limpa a mensagem de erro
+  msgError.style.display = "none";
+
+  try {
+    const response = await fetch("http://localhost:8080/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: senha,
+      }),
+    });
+
+    // Se a resposta não for OK, mostra uma mensagem de erro
+    if (!response.ok) {
+      throw new Error("Credenciais inválidas. Tente novamente.");
     }
-  });
+
+    const data = await response.json();
+    const token = data.token;
+    
+    // Armazena o token JWT no localStorage
+    localStorage.setItem("token", token);
+
+    // Exibe uma mensagem de sucesso
+    alert(`Bem-vindo(a), ${data.name}!`);
+    
+    // Redireciona para a página principal após login
+    window.location.href = "../Home/index.html"; // Altere o caminho conforme necessário
+
+  } catch (error) {
+    // Exibe a mensagem de erro
+    msgError.style.display = "block";
+    msgError.innerText = error.message;
+  }
 }

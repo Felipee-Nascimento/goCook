@@ -1,86 +1,82 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const productDetailContainer = document.getElementById(
-    "product-detail-container"
-  );
-  const reviewsContainer = document.getElementById("reviews-container");
-  const id = new URLSearchParams(window.location.search).get("id");
+document.addEventListener("DOMContentLoaded", async () => {
+  // Obtém o ID da receita da URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const receitaId = urlParams.get("id"); // Pega o ID passado na URL
 
-  async function fetchProductDetails(productId) {
-    try {
-      const productResponse = await fetch(
-        `http://localhost:3000/product/${productId}`
-      );
-      const reviewResponse = await fetch(
-        `http://localhost:3000/products/${productId}/reviews`
-      );
+  if (!receitaId) {
+    alert("Receita não encontrada. Verifique o ID.");
+    return;
+  }
 
-      if (!productResponse.ok || !reviewResponse.ok) {
-        throw new Error("Erro ao buscar detalhes do produto.");
-      }
+  const API_URL = `http://localhost:8080/receitas/${receitaId}`; // Endpoint para buscar a receita específica
+  const token = localStorage.getItem("token"); // Pega o token do localStorage
 
-      const productData = await productResponse.json();
-      const reviewsData = await reviewResponse.json();
+  if (!token) {
+    alert("Você precisa estar logado para visualizar a receita.");
+    return;
+  }
 
-      renderProductDetails(productData);
-      renderReviews(reviewsData);
-    } catch (error) {
-      productDetailContainer.innerHTML = `<p style="color: red;">${error.message}</p>`;
+  try {
+    // Faz a requisição para buscar a receita
+    const response = await fetch(API_URL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`, // Envia o token no cabeçalho
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao buscar os dados da receita.");
     }
+
+    const receita = await response.json(); // Recebe a resposta em JSON
+
+    // Chama a função para renderizar a receita
+    renderizarReceita(receita);
+  } catch (error) {
+    console.error("Erro ao carregar a receita:", error);
+    alert("Não foi possível carregar a receita. Tente novamente.");
   }
-
-  function renderProductDetails(product) {
-    productDetailContainer.innerHTML = `
-        <img class="product-image" src="http://localhost:3000${
-          product.image_url
-        }" alt="${product.title}">
-        <div class="product-info">
-          <h1 class="product-title">${product.title}</h1>
-          <p class="product-desc">${product.desc}</p>
-          <p class="product-price">
-            R$ ${product.price.toFixed(
-              2
-            )} <span class="unit-text">(por unidade)</span>
-          </p>
-          <button class="add-to-cart-button" onclick="addToCart(${
-            product.id
-          })">Adicionar ao Carrinho</button>
-        </div>
-      `;
-  }
-
-  function renderReviews(reviews) {
-    reviewsContainer.innerHTML = `
-        <h2>Deixe sua avaliação</h2>
-        <ul>
-          ${reviews
-            .map(
-              (review) =>
-                `<li>${review.comment} - ${"⭐".repeat(review.rating)}</li>`
-            )
-            .join("")}
-        </ul>
-      `;
-  }
-
-  window.addToCart = async (productId) => {
-    try {
-      const response = await fetch("http://localhost:3000/cart/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({ productId }),
-      });
-
-      const data = await response.json();
-      if (!response.ok)
-        throw new Error(data.message || "Erro ao adicionar ao carrinho.");
-      alert("Produto adicionado ao carrinho!");
-    } catch (error) {
-      alert(`Erro: ${error.message}`);
-    }
-  };
-
-  fetchProductDetails(id);
 });
+
+// Função para renderizar os dados da receita na página
+function renderizarReceita(receita) {
+  // Atualiza o título da receita
+  const titleElement = document.querySelector(".recipe-title");
+  titleElement.textContent = receita.titulo;
+
+  // Atualiza as informações (quantidade de pessoas e tempo de preparo)
+  const infoGroup = document.querySelector(".info-group");
+  infoGroup.innerHTML = `
+    <div class="info">
+      <p>${receita.quantidadeDePessoasServidas}</p>
+      <img src="../../img/pessoas.png" alt="Pessoas" />
+    </div>
+    <div class="info">
+      <p>${receita.tempoDePreparo} min</p>
+      <img src="../../img/relogio.png" alt="Tempo de Preparo" />
+    </div>
+  `;
+
+  // Exibe os ingredientes
+  const ingredientsList = document.querySelector(".ingredients");
+  ingredientsList.innerHTML = ""; // Limpa a lista antes de adicionar
+  if (receita.ingrediente && receita.ingrediente.trim() !== "") {
+    const ingredientesArray = receita.ingrediente.split(","); // Divide a string em itens
+    ingredientesArray.forEach((ingrediente) => {
+      const li = document.createElement("li");
+      li.textContent = ingrediente.trim(); // Remove espaços extras
+      ingredientsList.appendChild(li);
+    });
+  } else {
+    ingredientsList.innerHTML = "<li>Ingredientes não informados</li>";
+  }
+
+  // Exibe o modo de preparo
+  const stepsContainer = document.querySelector(".recipe-steps");
+  stepsContainer.innerHTML = `
+    <h2>Modo de Preparo:</h2>
+    <p>${receita.modoDePreparo}</p>
+  `;
+}

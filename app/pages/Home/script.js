@@ -6,29 +6,51 @@ function closeModal() {
   document.getElementById("cancelModal").style.display = "none";
 }
 
-// Função para buscar receitas da API
-async function fetchReceitas() {
+// URL base da API
+const API_URL = "http://localhost:8080/receitas";
+
+// Função para buscar e exibir receitas
+async function carregarReceitas() {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("Usuário não autenticado. Faça login para continuar.");
+    window.location.href = "../Login/index.html"; // Redireciona para a página de login
+    return;
+  }
+
   try {
-    const response = await fetch('http://localhost:8080/receitas'); // Substitua pela URL da API
-    if (!response.ok) {
-      throw new Error('Erro ao buscar as receitas');
+    const response = await fetch(API_URL, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const receitas = await response.json();
+      console.log("Receitas carregadas:", receitas);
+      renderizarReceitas(receitas);
+    } else {
+      console.error("Erro ao carregar receitas:", response.status);
+      alert("Erro ao carregar receitas. Verifique sua autenticação.");
     }
-    const receitas = await response.json();
-    renderReceitas(receitas);
   } catch (error) {
-    console.error('Erro:', error);
+    console.error("Erro na requisição de receitas:", error);
+    alert("Erro ao carregar receitas.");
   }
 }
 
-// Função para renderizar as receitas no front-end
-function renderReceitas(receitas) {
-  const mainContent = document.querySelector('.main-content');
-  mainContent.innerHTML = ''; // Limpa o conteúdo atual
+// Função para renderizar as receitas no HTML
+function renderizarReceitas(receitas) {
+  const mainContent = document.querySelector(".main-content");
+  mainContent.innerHTML = ""; // Limpa o conteúdo antes de adicionar novas receitas
 
-  receitas.forEach(receita => {
-    const receitaElement = document.createElement('div');
-    receitaElement.classList.add('item');
-    
+  receitas.forEach((receita) => {
+    const receitaElement = document.createElement("div");
+    receitaElement.classList.add("item");
+
     receitaElement.innerHTML = `
       <div class="item-details">
         <a class="button-nome-receita" href="../Receita/index.html?id=${receita.id}">
@@ -46,9 +68,7 @@ function renderReceitas(receitas) {
         </div>
       </div>
       <div class="actions">
-        <button class="delete-button" onclick="deleteReceita(${receita.id})">
-          Excluir
-        </button>
+        <button class="delete-button" onclick="excluirReceita(${receita.id})">Excluir</button>
       </div>
     `;
 
@@ -57,20 +77,35 @@ function renderReceitas(receitas) {
 }
 
 // Função para excluir uma receita
-async function deleteReceita(id) {
+async function excluirReceita(receitaId) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("Usuário não autenticado. Faça login para continuar.");
+    return;
+  }
+
   try {
-    const response = await fetch(`'http://localhost:8080/receitas/${id}`, {
-      method: 'DELETE',
+    const response = await fetch(`${API_URL}/${receitaId}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
     });
-    if (!response.ok) {
-      throw new Error('Erro ao excluir a receita');
+
+    if (response.ok) {
+      alert("Receita excluída com sucesso!");
+      carregarReceitas(); // Recarrega as receitas após exclusão
+    } else {
+      console.error("Erro ao excluir receita:", response.status);
+      alert("Erro ao excluir a receita.");
     }
-    alert('Receita excluída com sucesso');
-    fetchReceitas(); // Atualiza a lista de receitas
-  } catch (error) {
-    console.error('Erro:', error);
+  }catch (error) {
+    console.error("Erro na requisição de exclusão:", error);
+    alert("Erro ao excluir a receita.");
   }
 }
 
-// Chamada inicial para carregar as receitas
-fetchReceitas();
+// Carregar receitas ao carregar a página
+document.addEventListener("DOMContentLoaded", carregarReceitas);
