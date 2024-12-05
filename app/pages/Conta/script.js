@@ -1,83 +1,49 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const modalContainer = document.getElementById("modal-container");
+// Função para buscar informações do usuário
+async function buscarUsuario() {
+  const token = localStorage.getItem("token"); // Recupera o token do localStorage
   const nameElement = document.getElementById("name");
   const emailElement = document.getElementById("email");
-  const nameInput = document.getElementById("name-input");
-  const currentPasswordInput = document.getElementById("current-password");
-  const newPasswordInput = document.getElementById("new-password");
 
-  let formData = {
-    name: "",
-    email: "",
-    currentPassword: "",
-    newPassword: "",
-  };
+  // Verifica se o token existe
+  if (!token) {
+    alert("Você precisa estar autenticado para acessar esta página.");
+    window.location.href = "../Login/index.html"; // Redireciona para login
+    return;
+  }
 
-  async function fetchUserData() {
-    const response = await fetch("http://localhost:3000/user", {
+  try {
+    const response = await fetch("http://localhost:8080/auth/current-user", {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-
-    const data = await response.json();
-    formData = { ...formData, name: data.name, email: data.email };
-    nameElement.textContent = data.name;
-    emailElement.textContent = data.email;
-  }
-
-  function handleEditClick() {
-    modalContainer.style.display = "flex";
-    nameInput.value = formData.name;
-    currentPasswordInput.value = "";
-    newPasswordInput.value = "";
-  }
-
-  function handleCloseModal() {
-    modalContainer.style.display = "none";
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-
-    const updatedData = {
-      name: nameInput.value,
-      currentPassword: currentPasswordInput.value,
-      newPassword: newPasswordInput.value,
-    };
-
-    const response = await fetch("http://localhost:3000/user/update", {
-      method: "PUT",
-      headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${token}`, // Inclui o token no cabeçalho
       },
-      body: JSON.stringify(updatedData),
     });
 
+    // Se a resposta não for OK, redireciona para login
     if (!response.ok) {
-      const errorData = await response.json();
-      alert(errorData.message);
-    } else {
-      alert("Informações atualizadas com sucesso!");
-      handleCloseModal();
+      throw new Error("Erro ao buscar informações do usuário.");
     }
-  }
 
-  function handleLogout() {
-    localStorage.removeItem("token");
-    window.location.href = "../Login/index.html";
+    const data = await response.json(); // Assume que a API retorna JSON no formato esperado
+    nameElement.textContent = data.name; // Atualiza o nome do usuário na página
+    emailElement.textContent = data.email; // Atualiza o e-mail do usuário na página
+  } catch (error) {
+    alert("Erro ao buscar dados do usuário. Faça login novamente.");
+    localStorage.removeItem("token"); // Remove o token inválido
+    window.location.href = "../Login/index.html"; // Redireciona para login
   }
+}
 
-  document.getElementById("edit-form").addEventListener("submit", handleSubmit);
-  document
-    .querySelector(".edit-button")
-    .addEventListener("click", handleEditClick);
-  document
-    .querySelector(".close-button")
-    .addEventListener("click", handleCloseModal);
-  document
-    .querySelector(".logout-button")
-    .addEventListener("click", handleLogout);
-});
+// Chama a função ao carregar a página
+document.addEventListener("DOMContentLoaded", buscarUsuario);
+
+// Função para sair da conta
+function sairDaConta() {
+  localStorage.removeItem("token"); // Remove o token do localStorage
+  alert("Você saiu da conta.");
+  window.location.href = "../Login/index.html"; // Redireciona para login
+}
+
+// Evento no botão de logout
+document.querySelector(".logout-button").addEventListener("click", sairDaConta);

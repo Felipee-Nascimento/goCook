@@ -1,0 +1,253 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url("../../img/tabuaMadeira.jpg"); /* Manter comentário: Designed by Freepik */
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 6%;
+  align-items: center;
+  font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  background: #ff6a28;
+  height: 8vh;
+}
+
+.logo {
+  margin-left: 20px;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+}
+
+.nav-list li {
+  letter-spacing: 3px;
+  margin-left: 32px;
+}
+
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  padding-top: 120px;
+  background-color: #fff1df;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 28px;
+  color: #222;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+p {
+  font-size: 14px;
+  color: #222;
+}
+
+.text-obs {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.input-float {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.input-float input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input-float input:focus {
+  border-color: #f66f00;
+}
+
+.input-float input,
+.input-float textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input-float textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  height: 200px;
+  resize: vertical;
+}
+
+.input-float textarea:focus {
+  border-color: #f66f00;
+}
+
+#ingredientes-section {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+#ingredientes-section h3 {
+  font-size: 18px;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#ingredientes-section button {
+  background-color: transparent;
+  border: 2px solid #f66f00;
+  color: #f66f00;
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 10px 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#ingredientes-section button:hover {
+  background-color: #f66f00;
+  color: white;
+}
+
+#listaIngredientes {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+#listaIngredientes li {
+  font-size: 16px;
+  color: #444;
+  padding: 8px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.nomeIngrediente,
+.quantidadeIngrediente {
+  width: 40%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  margin: 5px 5px 10px 0;
+  transition: border-color 0.3s ease;
+}
+
+.nomeIngrediente:focus,
+.quantidadeIngrediente:focus {
+  border-color: #f66f00;
+}
+
+.ingrediente-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.botao-remover {
+  background-color: transparent;
+  border: 2px solid #f66f00;
+  color: #f66f00;
+  font-size: 18px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+  margin-left: 14px;
+}
+
+.botao-remover:hover {
+  background-color: #f66f00;
+  color: white;
+}
+
+button.button-criar {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #f66f00;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.button-criar:hover {
+  background-color: #ae4f00;
+}

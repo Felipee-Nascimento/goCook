@@ -84,67 +84,65 @@ confirmSenha.addEventListener("keyup", () => {
   }
 });
 
-document
-  .querySelector("#formCadastro")
-  .addEventListener("submit", function (e) {
-    e.preventDefault();
+// Função para cadastrar o usuário
+async function cadastrar() {
+  const nome = document.getElementById("nome").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const senha = document.getElementById("senha").value.trim();
+  const confirmSenha = document.getElementById("confirmSenha").value.trim();
+  const msgError = document.getElementById("msgError");
+  const msgSuccess = document.getElementById("msgSuccess");
 
-    function cadastrar() {
-      if (validNome && validEmail && validSenha && validConfirmSenha) {
-        let listaUser = JSON.parse(sessionStorage.getItem("listaUser") || "[]");
+  // Limpa mensagens de erro e sucesso
+  msgError.style.display = "none";
+  msgSuccess.style.display = "none";
 
-        listaUser.push({
-          nomeCad: nome.value,
-          emailCad: email.value,
-          senhaCad: senha.value,
-        });
+  // Verifica se as senhas coincidem
+  if (senha !== confirmSenha) {
+    msgError.style.display = "block";
+    msgError.innerText = "As senhas não coincidem.";
+    return;
+  }
 
-        sessionStorage.setItem("listaUser", JSON.stringify(listaUser));
+  try {
+    const response = await fetch("http://localhost:8080/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: nome,
+        email: email,
+        password: senha,
+      }),
+    });
 
-        msgSuccess.setAttribute("style", "display: block");
-        msgSuccess.innerHTML =
-          "<strong>Cadastro concluído com sucesso!</strong>";
-        msgError.setAttribute("style", "display: none");
-
-        setTimeout(() => {
-          window.location.href = "../Home/home.html";
-        }, 3000);
-      } else {
-        msgError.setAttribute("style", "display: block");
-        msgError.innerHTML =
-          "<strong>Preencha todos os campos corretamente</strong>";
-        msgSuccess.innerHTML = "";
-        msgSuccess.setAttribute("style", "display: none");
-      }
-
-      fetch(`https://gocook.azurewebsites.net/api/usuarios`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nm_Usuario: nome.value,
-          nm_Email: email.value,
-          ds_Senha: senha.value,
-        }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Falha no cadastro");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          document.getElementById("msgError").innerHTML = "";
-          document.getElementById("msgSuccess").innerHTML =
-            "Cadastro realizado com sucesso!";
-        })
-        .catch((error) => {
-          console.error("Erro:", error);
-          document.getElementById("msgError").innerHTML =
-            "Erro ao cadastrar. Tente novamente.";
-        });
+    if (!response.ok) {
+      throw new Error("Erro ao cadastrar usuário. Tente novamente.");
     }
 
-    console.log("Script cadastro.js carregado.");
-  });
+    const data = await response.json();
+    const token = data.token;
+
+    // Armazena o token JWT no localStorage
+    localStorage.setItem("token", token);
+
+    // Exibe uma mensagem de sucesso e redireciona para a página de login
+    msgSuccess.style.display = "block";
+    msgSuccess.innerText = "Cadastro realizado com sucesso!";
+    setTimeout(() => {
+      window.location.href = "../Home/index.html"; // Altere conforme necessário
+    }, 1500);
+  } catch (error) {
+    // Exibe a mensagem de erro
+    msgError.style.display = "block";
+    msgError.innerText = error.message;
+  }
+}
+
+// Evento de envio do formulário
+document.getElementById("formCadastro").addEventListener("submit", (event) => {
+  event.preventDefault(); // Evita o comportamento padrão do formulário
+  cadastrar();
+});
+

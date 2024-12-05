@@ -1,7 +1,8 @@
-document.addEventListener("DOMContentLoaded", async () => {
-  // Obtém o ID da receita da URL
   const urlParams = new URLSearchParams(window.location.search);
   const receitaId = urlParams.get("id"); // Pega o ID passado na URL
+
+document.addEventListener("DOMContentLoaded", async () => {
+  // Obtém o ID da receita da URL
 
   if (!receitaId) {
     alert("Receita não encontrada. Verifique o ID.");
@@ -79,4 +80,40 @@ function renderizarReceita(receita) {
     <h2>Modo de Preparo:</h2>
     <p>${receita.modoDePreparo}</p>
   `;
+}
+
+async function excluirReceita() {
+  const API_URL = `http://localhost:8080/receitas/${receitaId}`; // Endpoint para buscar a receita específica
+  
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("Usuário não autenticado. Faça login para continuar.");
+    return;
+  }
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      alert("Receita excluída com sucesso!");
+      window.location.href = "../Home/index.html";
+    } else {
+      console.error("Erro ao excluir receita:", response.status);
+      alert("Erro ao excluir a receita.");
+    }
+  }catch (error) {
+    console.error("Erro na requisição de exclusão:", error);
+    alert("Erro ao excluir a receita.");
+  }
+}
+
+function editarReceita(){
+  window.location.href = "../UpdateReceita/index.html?id=" + receitaId
 }

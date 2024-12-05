@@ -107,10 +107,7 @@ ingrediente: ingredientesString, // Passa os ingredientes como string
     // Exibe a resposta da API (informações da receita criada)
     const receitaCriada = await response.json();
     alert(`Receita criada com sucesso! ID: ${receitaCriada.id}`);
-
-    // Redireciona o usuário ou limpa o formulário, caso necessário
-    document.getElementById("formCriarReceita").reset(); // Limpa o formulário
-    document.getElementById("listaIngredientes").innerHTML = ""; // Limpa a lista de ingredientes
+    window.location.href="../Home/index.html";
   } catch (error) {
     console.error('Erro ao criar receita:', error);
     alert('Não foi possível criar a receita. Tente novamente.');
